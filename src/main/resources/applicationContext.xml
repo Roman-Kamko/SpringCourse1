@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="musicPlayer.properties"/>
+
+    <bean id="classicalMusicBean"
+          class="com.kamko.springcourse.ClassicalMusic">
+    </bean>
+
+    <bean id="rockMusicBean"
+          class="com.kamko.springcourse.RockMusic">
+    </bean>
+
+    <bean id="jazzMusicBean"
+          class="com.kamko.springcourse.JazzMusic">
+    </bean>
+
+    <bean id="musicPlayer" class="com.kamko.springcourse.MusicPlayer">
+
+        <property name="musicList">
+                <util:list>
+                    <ref bean="classicalMusicBean"/>
+                    <ref bean="rockMusicBean"/>
+                    <ref bean="jazzMusicBean"/>
+                </util:list>
+        </property>
+
+
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
+    </bean>
+
+</beans>
