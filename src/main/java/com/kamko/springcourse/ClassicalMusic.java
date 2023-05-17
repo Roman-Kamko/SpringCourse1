@@ -2,21 +2,29 @@ package com.kamko.springcourse;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ClassicalMusic implements Music {
-    private ClassicalMusic() {}
+    private Style style = Style.CLASSICAL;
 
-    public static ClassicalMusic getClassicalMusic() {
-        return new ClassicalMusic();
+    private List<String> classicalMusic = List.of(
+            "Classical song 1",
+            "Classical song 2",
+            "Classical song 3"
+    );
+
+    public Style getStyle() {
+        return style;
     }
-    public void doMyInit() {
-        System.out.println("doing initialization");
-    }
-    public void doMyDestroy() {
-        System.out.println("doing destruction");
-    }
+
     @Override
-    public String getSong() {
-        return "Hungarian Rhapsody";
+    public List<String> getMusicList() {
+        return classicalMusic;
+    }
+
+    @Override
+    public String toString() {
+        return getMusicList().toString();
     }
 }
