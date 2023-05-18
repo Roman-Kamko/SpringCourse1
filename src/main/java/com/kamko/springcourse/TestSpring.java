@@ -1,21 +1,14 @@
 package com.kamko.springcourse;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-//        Music music = context.getBean("musicBean", Music.class);
-
-//        MusicPlayer musicPlayer = new MusicPlayer(music);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(com.kamko.springcourse.JavaConfig.class);
 
         MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
-
-        musicPlayer.playMusicList();
-
-        System.out.println(musicPlayer.getName());
-        System.out.println(musicPlayer.getVolume());
+        System.out.println(musicPlayer.playMusic());
 
         context.close();
     }
