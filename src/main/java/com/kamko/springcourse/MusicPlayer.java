@@ -1,44 +1,41 @@
 package com.kamko.springcourse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Component
 public class MusicPlayer {
-    private ClassicalMusic classicalMusic;
-    private RockMusic rockMusic;
-    private JazzMusic jazzMusic;
+    private List<Music> musicList = new ArrayList<>();
+    @Value("${musicPlayer.name}")
+    private String name;
+    @Value("${musicPlayer.volume}")
+    private int volume;
 
-    @Autowired
-    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic, JazzMusic jazzMusic) {
-        this.classicalMusic = classicalMusic;
-        this.rockMusic = rockMusic;
-        this.jazzMusic = jazzMusic;
+    public MusicPlayer(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
     public MusicPlayer() {
     }
 
-    public String playMusic(Style style) {
-        switch (style) {
-            case CLASSICAL -> {
-                return getRandomSong(classicalMusic.getMusicList());
-            }
-            case ROCK -> {
-                return getRandomSong(rockMusic.getMusicList());
-            }
-            case JAZZ -> {
-                return getRandomSong(jazzMusic.getMusicList());
-            }
-        }
-        return "не поддерживаемый стиль";
+    public String getName() {
+        return name;
     }
 
-    public String getRandomSong(List<String> musicList) {
+    public int getVolume() {
+        return volume;
+    }
+
+    public String playMusic() {
+        return getRandomSong(musicList);
+    }
+
+    public String getRandomSong(List<Music> musicList) {
         Random random = new Random();
-        return musicList.get(random.nextInt(3));
+        return musicList.get(random.nextInt(this.musicList.size())).toString();
     }
 }

@@ -1,21 +1,24 @@
 package com.kamko.springcourse;
 
-import org.springframework.stereotype.Component;
-
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
-@Component
 public class ClassicalMusic implements Music {
-    private Style style = Style.CLASSICAL;
-
     private List<String> classicalMusic = List.of(
             "Classical song 1",
             "Classical song 2",
             "Classical song 3"
     );
 
-    public Style getStyle() {
-        return style;
+    @PostConstruct
+    public void doMyInit() {
+        System.out.println("Doing my initialization");
+    }
+
+    @PreDestroy
+    public void doMyDestroy() {
+        System.out.println("Doing my destroying");
     }
 
     @Override
